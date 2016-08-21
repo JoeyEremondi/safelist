@@ -1,0 +1,6 @@
+var _JoeyEremondi$typenats$TypeNat$Zero = function (a) {
+	return {ctor: 'Zero', _0: a};
+};
+var _JoeyEremondi$typenats$TypeNat$OnePlus = function (a) {
+	return {ctor: 'OnePlus', _0: a};
+};

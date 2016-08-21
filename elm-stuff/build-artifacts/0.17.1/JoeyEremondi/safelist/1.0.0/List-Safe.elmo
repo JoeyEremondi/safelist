@@ -1,0 +1,328 @@
+var _JoeyEremondi$safelist$List_Safe$any = F2(
+	function (f, _p0) {
+		var _p1 = _p0;
+		return A2(_elm_lang$core$List$any, f, _p1._0);
+	});
+var _JoeyEremondi$safelist$List_Safe$all = F2(
+	function (f, _p2) {
+		var _p3 = _p2;
+		return A2(_elm_lang$core$List$all, f, _p3._0);
+	});
+var _JoeyEremondi$safelist$List_Safe$member = F2(
+	function (x, _p4) {
+		var _p5 = _p4;
+		return A2(_elm_lang$core$List$member, x, _p5._0);
+	});
+var _JoeyEremondi$safelist$List_Safe$last = function (_p6) {
+	var _p7 = _p6;
+	var lastHelper = function (l) {
+		lastHelper:
+		while (true) {
+			var _p8 = l;
+			if (_p8.ctor === '[]') {
+				return _elm_lang$core$Native_Utils.crashCase(
+					'List.Safe',
+					{
+						start: {line: 285, column: 13},
+						end: {line: 293, column: 33}
+					},
+					_p8)('head: Type-leak somewhere in List.safe');
+			} else {
+				if (_p8._1.ctor === '[]') {
+					return _p8._0;
+				} else {
+					var _v5 = _p8._1;
+					l = _v5;
+					continue lastHelper;
+				}
+			}
+		}
+	};
+	return lastHelper(_p7._0);
+};
+var _JoeyEremondi$safelist$List_Safe$head = function (_p10) {
+	var _p11 = _p10;
+	var _p12 = _p11._0;
+	if (_p12.ctor === '[]') {
+		return _elm_lang$core$Native_Utils.crashCase(
+			'List.Safe',
+			{
+				start: {line: 271, column: 5},
+				end: {line: 276, column: 14}
+			},
+			_p12)('head: Type-leak somewhere in List.safe');
+	} else {
+		return _p12._0;
+	}
+};
+var _JoeyEremondi$safelist$List_Safe$minimum = function (_p14) {
+	var _p15 = _p14;
+	var _p16 = _elm_lang$core$List$minimum(_p15._0);
+	if (_p16.ctor === 'Nothing') {
+		return _elm_lang$core$Native_Utils.crashCase(
+			'List.Safe',
+			{
+				start: {line: 259, column: 5},
+				end: {line: 264, column: 14}
+			},
+			_p16)('minimum: Type-leak somewhere in List.Safe');
+	} else {
+		return _p16._0;
+	}
+};
+var _JoeyEremondi$safelist$List_Safe$maximum = function (_p18) {
+	var _p19 = _p18;
+	var _p20 = _elm_lang$core$List$maximum(_p19._0);
+	if (_p20.ctor === 'Nothing') {
+		return _elm_lang$core$Native_Utils.crashCase(
+			'List.Safe',
+			{
+				start: {line: 246, column: 5},
+				end: {line: 251, column: 14}
+			},
+			_p20)('maximum: Type-leak somewhere in List.Safe');
+	} else {
+		return _p20._0;
+	}
+};
+var _JoeyEremondi$safelist$List_Safe$toList = function (_p22) {
+	var _p23 = _p22;
+	return _p23._0;
+};
+var _JoeyEremondi$safelist$List_Safe$SafeList = function (a) {
+	return {ctor: 'SafeList', _0: a};
+};
+var _JoeyEremondi$safelist$List_Safe$null = _JoeyEremondi$safelist$List_Safe$SafeList(
+	_elm_lang$core$Native_List.fromArray(
+		[]));
+var _JoeyEremondi$safelist$List_Safe$cons = F2(
+	function (h, _p24) {
+		var _p25 = _p24;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A2(_elm_lang$core$List_ops['::'], h, _p25._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$someLength3 = A2(
+	_JoeyEremondi$safelist$List_Safe$cons,
+	2,
+	A2(
+		_JoeyEremondi$safelist$List_Safe$cons,
+		3,
+		A2(_JoeyEremondi$safelist$List_Safe$cons, 4, _JoeyEremondi$safelist$List_Safe$null)));
+var _JoeyEremondi$safelist$List_Safe$uncons = function (l) {
+	var _p26 = l;
+	if (_p26._0.ctor === '::') {
+		return {
+			ctor: '_Tuple2',
+			_0: _p26._0._0,
+			_1: _JoeyEremondi$safelist$List_Safe$SafeList(_p26._0._1)
+		};
+	} else {
+		return _elm_lang$core$Native_Utils.crashCase(
+			'List.Safe',
+			{
+				start: {line: 129, column: 5},
+				end: {line: 134, column: 51}
+			},
+			_p26)('this should never happen');
+	}
+};
+var _JoeyEremondi$safelist$List_Safe$sumFirstLast = function () {
+	var _p28 = _JoeyEremondi$safelist$List_Safe$uncons(_JoeyEremondi$safelist$List_Safe$someLength3);
+	var h1 = _p28._0;
+	var t1 = _p28._1;
+	var _p29 = _JoeyEremondi$safelist$List_Safe$uncons(t1);
+	var t2 = _p29._1;
+	var _p30 = _JoeyEremondi$safelist$List_Safe$uncons(t2);
+	var h3 = _p30._0;
+	var t3 = _p30._1;
+	var tailCheck = t3;
+	return h1 + h3;
+}();
+var _JoeyEremondi$safelist$List_Safe$fromList = F2(
+	function (_p31, unsafeList) {
+		var _p32 = _p31;
+		return _elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$List$length(_p32._0),
+			_elm_lang$core$List$length(unsafeList)) ? _elm_lang$core$Maybe$Just(
+			_JoeyEremondi$safelist$List_Safe$SafeList(unsafeList)) : _elm_lang$core$Maybe$Nothing;
+	});
+var _JoeyEremondi$safelist$List_Safe$internalMap = F2(
+	function (f, _p33) {
+		var _p34 = _p33;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			f(_p34._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$map = function (f) {
+	return _JoeyEremondi$safelist$List_Safe$internalMap(
+		_elm_lang$core$List$map(f));
+};
+var _JoeyEremondi$safelist$List_Safe$mapl = F2(
+	function (f, initialContext) {
+		var foldFn = F2(
+			function (elem, _p35) {
+				var _p36 = _p35;
+				var _p37 = f(
+					{ctor: '_Tuple2', _0: elem, _1: _p36._1});
+				var newElem = _p37._0;
+				var newContext = _p37._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_elm_lang$core$List_ops['::'], newElem, _p36._0),
+					_1: newContext
+				};
+			});
+		return _JoeyEremondi$safelist$List_Safe$internalMap(
+			function (_p38) {
+				return _elm_lang$core$Basics$fst(
+					A3(
+						_elm_lang$core$List$foldl,
+						foldFn,
+						{
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_List.fromArray(
+								[]),
+							_1: initialContext
+						},
+						_p38));
+			});
+	});
+var _JoeyEremondi$safelist$List_Safe$mapr = F2(
+	function (f, initialContext) {
+		var foldFn = F2(
+			function (elem, _p39) {
+				var _p40 = _p39;
+				var _p41 = f(
+					{ctor: '_Tuple2', _0: elem, _1: _p40._1});
+				var newElem = _p41._0;
+				var newContext = _p41._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(
+						_elm_lang$core$Basics_ops['++'],
+						_p40._0,
+						_elm_lang$core$Native_List.fromArray(
+							[newElem])),
+					_1: newContext
+				};
+			});
+		return _JoeyEremondi$safelist$List_Safe$internalMap(
+			function (_p42) {
+				return _elm_lang$core$Basics$fst(
+					A3(
+						_elm_lang$core$List$foldr,
+						foldFn,
+						{
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_List.fromArray(
+								[]),
+							_1: initialContext
+						},
+						_p42));
+			});
+	});
+var _JoeyEremondi$safelist$List_Safe$reverseMapr = F2(
+	function (f, initialContext) {
+		var foldFn = F2(
+			function (elem, _p43) {
+				var _p44 = _p43;
+				var _p45 = f(
+					{ctor: '_Tuple2', _0: elem, _1: _p44._1});
+				var newElem = _p45._0;
+				var newContext = _p45._1;
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_elm_lang$core$List_ops['::'], newElem, _p44._0),
+					_1: newContext
+				};
+			});
+		return _JoeyEremondi$safelist$List_Safe$internalMap(
+			function (_p46) {
+				return _elm_lang$core$Basics$fst(
+					A3(
+						_elm_lang$core$List$foldr,
+						foldFn,
+						{
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_List.fromArray(
+								[]),
+							_1: initialContext
+						},
+						_p46));
+			});
+	});
+var _JoeyEremondi$safelist$List_Safe$reverse = _JoeyEremondi$safelist$List_Safe$internalMap(_elm_lang$core$List$reverse);
+var _JoeyEremondi$safelist$List_Safe$sort = _JoeyEremondi$safelist$List_Safe$internalMap(_elm_lang$core$List$sort);
+var _JoeyEremondi$safelist$List_Safe$sortBy = function (f) {
+	return _JoeyEremondi$safelist$List_Safe$internalMap(
+		_elm_lang$core$List$sortBy(f));
+};
+var _JoeyEremondi$safelist$List_Safe$sortWith = function (f) {
+	return _JoeyEremondi$safelist$List_Safe$internalMap(
+		_elm_lang$core$List$sortWith(f));
+};
+var _JoeyEremondi$safelist$List_Safe$scanl = F3(
+	function (f, init, _p47) {
+		var _p48 = _p47;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A3(_elm_lang$core$List$scanl, f, init, _p48._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$tail = function (_p49) {
+	var _p50 = _p49;
+	var _p51 = _p50._0;
+	if (_p51.ctor === '[]') {
+		return _elm_lang$core$Native_Utils.crashCase(
+			'List.Safe',
+			{
+				start: {line: 302, column: 5},
+				end: {line: 307, column: 23}
+			},
+			_p51)('head: Type-leak somewhere in List.safe');
+	} else {
+		return _JoeyEremondi$safelist$List_Safe$SafeList(_p51._1);
+	}
+};
+var _JoeyEremondi$safelist$List_Safe$map2 = F3(
+	function (f, _p54, _p53) {
+		var _p55 = _p54;
+		var _p56 = _p53;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A3(_elm_lang$core$List$map2, f, _p55._0, _p56._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$map3 = F4(
+	function (f, _p59, _p58, _p57) {
+		var _p60 = _p59;
+		var _p61 = _p58;
+		var _p62 = _p57;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A4(_elm_lang$core$List$map3, f, _p60._0, _p61._0, _p62._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$map4 = F5(
+	function (f, _p66, _p65, _p64, _p63) {
+		var _p67 = _p66;
+		var _p68 = _p65;
+		var _p69 = _p64;
+		var _p70 = _p63;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A5(_elm_lang$core$List$map4, f, _p67._0, _p68._0, _p69._0, _p70._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$map5 = F6(
+	function (f, _p75, _p74, _p73, _p72, _p71) {
+		var _p76 = _p75;
+		var _p77 = _p74;
+		var _p78 = _p73;
+		var _p79 = _p72;
+		var _p80 = _p71;
+		return _JoeyEremondi$safelist$List_Safe$SafeList(
+			A6(_elm_lang$core$List$map5, f, _p76._0, _p77._0, _p78._0, _p79._0, _p80._0));
+	});
+var _JoeyEremondi$safelist$List_Safe$unzip = function (_p81) {
+	var _p82 = _p81;
+	var _p83 = _elm_lang$core$List$unzip(_p82._0);
+	var l1 = _p83._0;
+	var l2 = _p83._1;
+	return {
+		ctor: '_Tuple2',
+		_0: _JoeyEremondi$safelist$List_Safe$SafeList(l1),
+		_1: _JoeyEremondi$safelist$List_Safe$SafeList(l2)
+	};
+};
