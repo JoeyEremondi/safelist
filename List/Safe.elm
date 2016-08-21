@@ -397,6 +397,10 @@ someLength3 =
     2 `cons` 3 `cons` 4 `cons` null
 
 
+{-|
+Just a test function to make sure everything compiles
+-}
+sumFirstLast : Int
 sumFirstLast =
     let
         ( h1, t1 ) =
